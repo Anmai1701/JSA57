@@ -1,0 +1,48 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+}
+
+#result {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    justify-items: center;
+    margin: 20px auto;
+    max-width: 600px;
+}
+  
+.grid img {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+  
+  .grid img:hover {
+    transform: scale(1.05);
+}
+  
+#score-board {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #333;
+}
+  
+#result {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 500;
+    margin-top: 10px;
+    color: #000000;
+}
