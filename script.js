@@ -1,45 +1,50 @@
-document.getElementById("registerForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-  
-    const username = document.getElementById("username").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const verifyPassword = document.getElementById("verifyPassword").value.trim();
-  
-    const usernameError = document.getElementById("usernameError");
-    const emailError = document.getElementById("emailError");
-    const passwordError = document.getElementById("passwordError");
-    const verifyPasswordError = document.getElementById("verifyPasswordError");
-  
-    usernameError.textContent = "";
-    emailError.textContent = "";
-    passwordError.textContent = "";
-    verifyPasswordError.textContent = "";
-  
-    let valid = true;
-  
-    if (username.length < 6 || username.length > 18) {
-      usernameError.textContent = "Username phải từ 6 đến 18 ký tự";
-      valid = false;
-    }
-  
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      emailError.textContent = "Email không đúng định dạng";
-      valid = false;
-    }
-  
-    if (password.length < 8 || password.length > 20) {
-      passwordError.textContent = "Password phải từ 8 đến 20 ký tự";
-      valid = false;
-    }
-  
-    if (verifyPassword !== password) {
-      verifyPasswordError.textContent = "Verify Password phải trùng với Password";
-      valid = false;
-    }
-  
-    if (valid) {
-      alert("Đăng ký thành công với username: " + username);
-    }
-  });
+const previewBtn = document.getElementById('previewBtn');
+const submitBtn = document.getElementById('submitBtn');
+const form = document.getElementById('bookingForm');
+
+previewBtn.addEventListener('click', function() {
+  form.querySelectorAll('.form-control').forEach(el => el.classList.remove('is-invalid'));
+
+  const name = document.getElementById('name');
+  const email = document.getElementById('email');
+  const phone = document.getElementById('phone');
+  const datetime = document.getElementById('datetime');
+
+  let valid = true;
+
+  if (name.value.trim() === '') {
+    name.classList.add('is-invalid'); valid = false;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email.value)) {
+    email.classList.add('is-invalid'); valid = false;
+  }
+
+  const phoneRegex = /^[0-9]{9,11}$/;
+  if (!phoneRegex.test(phone.value)) {
+    phone.classList.add('is-invalid'); valid = false;
+  }
+
+  if (datetime.value === '') {
+    datetime.classList.add('is-invalid'); valid = false;
+  }
+
+  if (valid) {
+    document.getElementById('confirmName').innerText = name.value;
+    document.getElementById('confirmEmail').innerText = email.value;
+    document.getElementById('confirmPhone').innerText = phone.value;
+    document.getElementById('confirmDatetime').innerText = datetime.value;
+
+    const modal = new bootstrap.Modal(document.getElementById('confirmModal'));
+    modal.show();
+  }
+});
+
+submitBtn.addEventListener('click', function() {
+  alert('Đặt bàn thành công!');
+  const modalEl = document.getElementById('confirmModal');
+  const modal = bootstrap.Modal.getInstance(modalEl);
+  modal.hide();
+  form.reset();
+});
